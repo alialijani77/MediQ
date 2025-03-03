@@ -1,6 +1,11 @@
+using MediQ.Infra.Data.DataContext;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("SqlServerContext");
+
+builder.Services.AddScoped(_ => { return BaseContext.CreateInstance(connectionString, null); });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
