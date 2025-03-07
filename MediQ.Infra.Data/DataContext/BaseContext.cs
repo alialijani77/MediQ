@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace MediQ.Infra.Data.DataContext
 {
-	public abstract class BaseContext : IdentityDbContext
+	public abstract class BaseContext : IdentityDbContext<IdentityUser>
 	{
 		protected BaseContext() { }
 
