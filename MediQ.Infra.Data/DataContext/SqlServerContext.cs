@@ -30,5 +30,11 @@ namespace MediQ.Infra.Data.DataContext
 					}
 				 );
 		}
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+
+		}
 	}
 }
