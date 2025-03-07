@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using System.Reflection.Emit;
 
 namespace MediQ.Infra.Data.DataContext
 {
@@ -34,6 +35,7 @@ namespace MediQ.Infra.Data.DataContext
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
+			builder.HasDefaultSchema("MediQ");
 
 		}
 	}
