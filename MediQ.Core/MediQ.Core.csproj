@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MediQ.Domain\MediQ.Domain.csproj" />
+    <ProjectReference Include="..\MediQ.Infra.Data\MediQ.Infra.Data.csproj" />
+  </ItemGroup>
+
 </Project>
