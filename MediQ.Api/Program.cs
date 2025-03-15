@@ -1,3 +1,5 @@
+using MediQ.CoreBusiness.Services.Implementions;
+using MediQ.CoreBusiness.Services.Interfaces;
 using MediQ.Domain.Entities.UserManagement;
 using MediQ.Infra.Data.DataContext;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SqlServerContext");
 
 builder.Services.AddScoped(_ => { return BaseContext.CreateInstance(connectionString, null); });
+
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
