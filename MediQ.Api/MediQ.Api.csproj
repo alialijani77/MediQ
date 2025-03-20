@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MediQ.CoreBusiness\MediQ.CoreBusiness.csproj" />
+    <ProjectReference Include="..\MediQ.Infra.Ioc\MediQ.Infra.Ioc.csproj" />
   </ItemGroup>
 
 </Project>

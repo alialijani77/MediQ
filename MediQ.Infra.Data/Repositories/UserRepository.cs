@@ -1,12 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediQ.Domain.Entities.UserManagement;
+using MediQ.Domain.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace MediQ.Infra.Data.Repositories
 {
-	internal class UserRepository
+	public class UserRepository : IUserRepository
 	{
+		private readonly UserManager<User> _userManager;
+		#region ctor
+		public UserRepository(UserManager<User> userManager)
+		{
+			_userManager = userManager;
+		}
+		#endregion
+		public async Task<IdentityResult> CreateUser(User user, string password)
+		{
+			var result = await _userManager.CreateAsync(user, password);
+			return result;
+		}
+
+		public async Task<User> IsExistsUserByEmail(string email)
+		{
+			var result = await _userManager.FindByEmailAsync(email);
+			return result;
+		}
+
+		
 	}
 }

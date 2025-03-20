@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediQ.Domain.Entities.UserManagement;
+using Microsoft.AspNetCore.Identity;
 
 namespace MediQ.Domain.Interfaces
 {
-	internal interface IUserRepository
+	public interface IUserRepository
 	{
+		Task<IdentityResult> CreateUser(User user, string password);
+		Task<User> IsExistsUserByEmail(string email);
 	}
 }

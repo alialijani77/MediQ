@@ -1,4 +1,6 @@
 ﻿using Asp.Versioning;
+using MediQ.Core.DTOs.Account.User;
+using MediQ.CoreBusiness.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediQ.Api.Controllers.Account.V1
@@ -9,10 +11,31 @@ namespace MediQ.Api.Controllers.Account.V1
 
 	public class AccountController : ControllerBase
 	{
-		[HttpGet]
-		public virtual IEnumerable<string> Get()
+		private readonly IUserService _userService;
+		#region ctor
+		public AccountController(IUserService userService)
 		{
-			return new string[] { "value1", "value2" };
+			_userService = userService;
 		}
+		#endregion
+
+		#region Register
+		[HttpPost("Register")]
+		public async Task<IActionResult> Register(RegisterDto register)
+		{
+			if (!ModelState.IsValid)
+			{
+				throw new Exception(StatusCodes.Status403Forbidden.ToString());
+
+			}
+			var result = await _userService.Register(register);
+
+			if (result)
+			{
+				return Ok(result);
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
+		#endregion
 	}
 }

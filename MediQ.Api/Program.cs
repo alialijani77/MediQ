@@ -1,6 +1,7 @@
 using Asp.Versioning;
 using MediQ.Domain.Entities.UserManagement;
 using MediQ.Infra.Data.DataContext;
+using MediQ.Infra.Ioc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -11,6 +12,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("SqlServerContext");
 
+#region RegisterDependencies
+DependencyContainer.RegisterDependencies(builder.Services);
+#endregion
 builder.Services.AddScoped(_ => { return BaseContext.CreateInstance(connectionString, null); });
 
 builder.Services.AddControllers();
