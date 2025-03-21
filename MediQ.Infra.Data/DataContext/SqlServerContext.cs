@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediQ.Domain.Entities.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
-using System.Reflection.Emit;
 
 namespace MediQ.Infra.Data.DataContext
 {
@@ -31,12 +31,33 @@ namespace MediQ.Infra.Data.DataContext
 					}
 				 );
 		}
+		#region DbSet
+		public DbSet<EmailSetting> EmailSettings { get; set; }
 
+		#endregion
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			base.OnModelCreating(builder);
 			builder.HasDefaultSchema("MediQ");
 
+			#region SeadData
+			var date = DateTime.MinValue;
+
+			builder.Entity<EmailSetting>().HasData(new EmailSetting()
+			{
+				CreateDate = date,
+				DisplayName = "MediQ",
+				EnableSSL = true,
+				From = "mediqsystem@gmail.com",
+				Id = 1,
+				IsDefault = true,
+				IsDelete = false,
+				Password = "tkisthnoqbtvsmlq",
+				Port = 587,
+				SMTP = "smtp.gmail.com"
+
+			});
+			#endregion
 		}
 	}
 }
