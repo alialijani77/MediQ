@@ -13,13 +13,14 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("SqlServerContext");
 
 #region RegisterDependencies
-DependencyContainer.RegisterDependencies(builder.Services);
+DependencyContainer.RegisterDependencies(builder.Services, connectionString);
 #endregion
-builder.Services.AddScoped(_ => { return BaseContext.CreateInstance(connectionString, null); });
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
+#region Swagger
 builder.Services.AddSwaggerGen(options =>
 {
 	options.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi.MediQ", Version = "v1" });
@@ -37,7 +38,9 @@ builder.Services.AddSwaggerGen(options =>
 		return version.Any(v => $"v{v.ToString()}" == doc);
 	});
 });
+#endregion
 
+#region ApiVersioning
 builder.Services.AddApiVersioning(option =>
 {
 	option.DefaultApiVersion = new ApiVersion(1);
@@ -45,12 +48,16 @@ builder.Services.AddApiVersioning(option =>
 	option.ReportApiVersions = true;
 	option.ApiVersionReader = new UrlSegmentApiVersionReader();
 }).AddApiExplorer();
+#endregion
 
+#region Identity
 builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders();
+#endregion
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
