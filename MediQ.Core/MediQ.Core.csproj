@@ -11,4 +11,8 @@
     <ProjectReference Include="..\MediQ.Infra.Data\MediQ.Infra.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
 </Project>
