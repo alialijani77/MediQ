@@ -12,10 +12,12 @@ namespace MediQ.Api.Controllers.Account.V1
 	public class AccountController : ControllerBase
 	{
 		private readonly IUserService _userService;
+		private readonly ILogger<AccountController> _logger;
 		#region ctor
-		public AccountController(IUserService userService)
+		public AccountController(IUserService userService, ILogger<AccountController> logger)
 		{
 			_userService = userService;
+			_logger = logger;
 		}
 		#endregion
 
