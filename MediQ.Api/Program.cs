@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using MediQ.Api.Middlewares;
 using MediQ.Domain.Entities.UserManagement;
 using MediQ.Infra.Data.DataContext;
 using MediQ.Infra.Ioc;
@@ -67,6 +68,7 @@ if (app.Environment.IsDevelopment())
 		options.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
 	});
 }
+app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
 
