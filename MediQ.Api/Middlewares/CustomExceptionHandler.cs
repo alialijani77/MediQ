@@ -30,18 +30,33 @@ namespace MediQ.Api.Middlewares
 			}
 			catch (NotFoundException ex)
 			{
-				problemDetails = new ProblemDetails { Type = ProblemDetailsTypes.ENTITY_EXCEPTION,  Title = "NotFoundException"
-					, Status = StatusCodes.Status404NotFound , Detail = ex.Message};
+				problemDetails = new ProblemDetails
+				{
+					Type = ProblemDetailsTypes.ENTITY_EXCEPTION,
+					Title = "NotFoundException",
+					Status = StatusCodes.Status404NotFound,
+					Detail = ex.Message
+				};
 			}
 			catch (Exception ex)
 			{
-				throw;
+				problemDetails = new ProblemDetails
+				{
+					Type = ProblemDetailsTypes.SERVER_EXCEPTION,
+					Title = "Status500InternalServerError",
+					Status = StatusCodes.Status500InternalServerError,
+					Detail = ex.Message
+				};
 			}
-			context.Response.ContentType = "application/problem+json";
-			context.Response.StatusCode = problemDetails.Status ?? StatusCodes.Status500InternalServerError;
+			if (problemDetails != null)
+			{
+				context.Response.ContentType = "application/problem+json";
+				context.Response.StatusCode = problemDetails.Status ?? StatusCodes.Status500InternalServerError;
 
-			var json = JsonConvert.SerializeObject(problemDetails, jsonSerializerSettings);
-			await context.Response.WriteAsync(json);
+				var json = JsonConvert.SerializeObject(problemDetails, jsonSerializerSettings);
+				await context.Response.WriteAsync(json);
+			}
+
 		}
 	}
 
@@ -64,7 +79,6 @@ namespace MediQ.Api.Middlewares
 		public const string ENTITY_EXCEPTION = BASE + "EntityException";
 		public const string UNAUTHORIZED_EXCEPTION = BASE + "UnAuthorizedException";
 		public const string SERVER_EXCEPTION = BASE + "ServerException";
-
 		public const string UNHANDLED_EXCEPTION = BASE + "UnhandledException";
 		public const string DEVELOPMENT_UNHANDLED_EXCEPTION = BASE + "DevelopmentUnhandledException";
 	}

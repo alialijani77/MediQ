@@ -37,7 +37,8 @@ namespace MediQ.CoreBusiness.Services.Implementions
 
 			if(result.Succeeded)
 			{
-				var token = _userRepository.GenerateChangeEmailTokenAsync(user, register.Email);
+				var token = await _userRepository.GenerateChangeEmailTokenAsync(user, register.Email);
+				token += $"#userId={user.Id}";
 
 				#region SendActivationEmail
 
@@ -45,11 +46,12 @@ namespace MediQ.CoreBusiness.Services.Implementions
                 <div> برای فعالسازی حساب کاربری خود روی لینک زیر کلیک کنید . </div>
                 <a href='{PathTools.Root}/Activate-Email/{token}'>فعالسازی حساب کاربری</a>";
 
-				await _emailService.SendEmail(user.Email, "فعالسازی حساب کاربری", body);
-
+				var emailResult = await _emailService.SendEmail(user.Email, "فعالسازی حساب کاربری", body);
+				
+				if(emailResult) return true;
 				#endregion
 			}
-			return true;
+			return false;
 		}
 		#endregion
 

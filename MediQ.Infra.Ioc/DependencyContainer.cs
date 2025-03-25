@@ -16,12 +16,12 @@ namespace MediQ.Infra.Ioc
 			#endregion
 
 			#region Services
-			services.AddTransient<IUserService, UserService>();
-			services.AddTransient<IEmailService, EmailService>();
+			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IEmailService, EmailService>();
 			#endregion
 
 			#region Repositories
-			services.AddTransient<IUserRepository, UserRepository>();
+			services.AddScoped<IUserRepository, UserRepository>();
 			#endregion
 		}
 	}

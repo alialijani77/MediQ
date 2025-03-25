@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using MediQ.Core.DTOs.Account.User;
+using MediQ.Core.DTOs.ApiResult;
 using MediQ.CoreBusiness.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,7 +35,7 @@ namespace MediQ.Api.Controllers.Account.V1
 
 			if (result)
 			{
-				return Ok(result);
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "ایمیل فعالسازی ارسال شد"));
 			}
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
