@@ -1,5 +1,6 @@
 ﻿using MediQ.Core.DTOs.Account.User;
 using MediQ.Core.Security;
+using MediQ.Core.Statics;
 using MediQ.CoreBusiness.Services.Interfaces;
 using MediQ.Domain.Entities.UserManagement;
 using MediQ.Domain.Interfaces;
@@ -42,7 +43,7 @@ namespace MediQ.CoreBusiness.Services.Implementions
 
 				var body = $@"
                 <div> برای فعالسازی حساب کاربری خود روی لینک زیر کلیک کنید . </div>
-                <a href='/Activate-Email/{token}'>فعالسازی حساب کاربری</a>";
+                <a href='{PathTools.Root}/Activate-Email/{token}'>فعالسازی حساب کاربری</a>";
 
 				await _emailService.SendEmail(user.Email, "فعالسازی حساب کاربری", body);
 
