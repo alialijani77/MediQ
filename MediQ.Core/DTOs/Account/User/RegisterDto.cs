@@ -21,10 +21,4 @@ namespace MediQ.Core.DTOs.Account.User
 		[Compare("Password", ErrorMessage = "کلمه های عبور مغایرت دارند .")]
 		public string RePassword { get; set; }
 	}
-
-	public enum RegisterResult
-	{
-		Success,
-		EmailExists
-	}
 }

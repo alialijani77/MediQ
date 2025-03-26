@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediQ.Domain.Entities.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
-using System.Reflection.Emit;
 
 namespace MediQ.Infra.Data.DataContext
 {
@@ -30,13 +30,6 @@ namespace MediQ.Infra.Data.DataContext
 						options.MigrationsHistoryTable("A0_MIGRATIONS_HISTORY", "MEDIQ");
 					}
 				 );
-		}
-
-		protected override void OnModelCreating(ModelBuilder builder)
-		{
-			base.OnModelCreating(builder);
-			builder.HasDefaultSchema("MediQ");
-
 		}
 	}
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediQ.Core.DTOs.Account.User;
 
 namespace MediQ.CoreBusiness.Services.Interfaces
 {
-    interface IUserService
-    {
-    }
+	public interface IUserService
+	{
+		Task<bool> Register(RegisterDto register);
+	}
 }
