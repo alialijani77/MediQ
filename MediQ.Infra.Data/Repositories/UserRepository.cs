@@ -17,10 +17,22 @@ namespace MediQ.Infra.Data.Repositories
 			_context = context;
 			_userManager = userManager;
 		}
+
+		public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+		{
+			var result = await _userManager.ConfirmEmailAsync(user, token);
+			return result;
+		}
 		#endregion
 		public async Task<IdentityResult> CreateUser(User user, string password)
 		{
 			var result = await _userManager.CreateAsync(user, password);
+			return result;
+		}
+
+		public async Task<User> FindByIdAsync(string userId)
+		{
+			var result = await _userManager.FindByIdAsync(userId);
 			return result;
 		}
 

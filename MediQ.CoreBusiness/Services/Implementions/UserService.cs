@@ -44,13 +44,29 @@ namespace MediQ.CoreBusiness.Services.Implementions
 
 				var body = $@"
                 <div> برای فعالسازی حساب کاربری خود روی لینک زیر کلیک کنید . </div>
-                <a href='{PathTools.Root}/Activate-Email/{token}'>فعالسازی حساب کاربری</a>";
+                <a href='{PathTools.Root}/api/v1/Account/Activate-Email?activationcode={token}'>فعالسازی حساب کاربری</a>";
 
 				var emailResult = await _emailService.SendEmail(user.Email, "فعالسازی حساب کاربری", body);
 				
 				if(emailResult) return true;
 				#endregion
 			}
+			return false;
+		}
+		#endregion
+		#region EmailActivation
+		public async Task<bool> EmailActivation(string activationcode)
+		{
+			var indexOfUserId = activationcode.IndexOf("#userId");
+			var userId = activationcode.Substring(indexOfUserId + 1);
+			var token = activationcode.Substring(0, indexOfUserId - 7);
+			var user = await _userRepository.FindByIdAsync(userId);
+			if (user == null)
+			{
+				return false;
+			}
+			var result = _userRepository.ConfirmEmailAsync(user, token);
+			if (result.IsCompletedSuccessfully) return true;
 			return false;
 		}
 		#endregion
