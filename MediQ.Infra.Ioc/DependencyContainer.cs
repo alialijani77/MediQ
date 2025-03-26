@@ -18,10 +18,11 @@ namespace MediQ.Infra.Ioc
 			#region Services
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IEmailService, EmailService>();
-			#endregion
+            services.AddScoped<ITokenService, TokenService>();
+            #endregion
 
-			#region Repositories
-			services.AddScoped<IUserRepository, UserRepository>();
+            #region Repositories
+            services.AddScoped<IUserRepository, UserRepository>();
 			#endregion
 		}
 	}
