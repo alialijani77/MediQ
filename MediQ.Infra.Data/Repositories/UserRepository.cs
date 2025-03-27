@@ -53,6 +53,11 @@ namespace MediQ.Infra.Data.Repositories
 			return result;
 		}
 
-		
+		public async Task<IdentityUser> FindUserByEmailAsync(string email)
+		{
+			var result = await _userManager.FindByEmailAsync(email);
+			return result;
+		}
+
 	}
 }

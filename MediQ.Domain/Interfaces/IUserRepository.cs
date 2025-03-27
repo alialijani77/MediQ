@@ -12,6 +12,7 @@ namespace MediQ.Domain.Interfaces
 		Task<string> GenerateChangeEmailTokenAsync(User user, string email);
 		Task<User> FindByIdAsync(string userId);
 		Task<IdentityResult> ConfirmEmailAsync(User user,string token);
+		Task<IdentityUser> FindUserByEmailAsync(string email);
 
 	}
 }
