@@ -4,6 +4,7 @@ using MediQ.Core.Statics;
 using MediQ.CoreBusiness.Services.Interfaces;
 using MediQ.Domain.Entities.UserManagement;
 using MediQ.Domain.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace MediQ.CoreBusiness.Services.Implementions
 {
@@ -11,11 +12,14 @@ namespace MediQ.CoreBusiness.Services.Implementions
 	{
 		private readonly IUserRepository _userRepository;
 		private readonly IEmailService _emailService;
+		private readonly ITokenService _tokenService;
+
 		#region ctor
-		public UserService(IUserRepository userRepository, IEmailService emailService)
+		public UserService(IUserRepository userRepository, IEmailService emailService, ITokenService tokenService)
 		{
 			_userRepository = userRepository;
 			_emailService = emailService;
+			_tokenService = tokenService;
 		}
 		#endregion
 		#region Register
@@ -55,9 +59,17 @@ namespace MediQ.CoreBusiness.Services.Implementions
 		}
 		#endregion
 		#region Login
-		public Task<bool> Login(LoginDto loginDto)
+		public async Task<string> Login(LoginDto loginDto)
 		{
-			throw new NotImplementedException();
+			var result = await _userRepository.PasswordSignIn(loginDto.Email, loginDto.Password);
+			if (result.Succeeded)
+			{
+				var user = await _userRepository.FindByEmailAsync(loginDto.Email);
+				var token = await _tokenService.GenerateToken(user);
+
+				return token;
+			}
+			return null;
 		}
 		#endregion
 		#region EmailActivation

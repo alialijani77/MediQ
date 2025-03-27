@@ -1,19 +1,22 @@
 ﻿using MediQ.Domain.Entities.Common;
 using MediQ.Domain.Entities.UserManagement;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace MediQ.Domain.Interfaces
 {
 	public interface IUserRepository
 	{
-		Task<IdentityResult> CreateUser(User user, string password);
-		Task<User> IsExistsUserByEmail(string email);
+		Task<IdentityResult> CreateUser(IdentityUser user, string password);
+		Task<IdentityUser> IsExistsUserByEmail(string email);
 		Task<EmailSetting> GetDefaultEmail();
-		Task<string> GenerateChangeEmailTokenAsync(User user, string email);
-		Task<User> FindByIdAsync(string userId);
-		Task<IdentityResult> ConfirmEmailAsync(User user,string token);
-		Task<IdentityUser> FindUserByEmailAsync(string email);
+		Task<string> GenerateChangeEmailTokenAsync(IdentityUser user, string email);
+		Task<IdentityUser> FindByIdAsync(string userId);
+		Task<IdentityResult> ConfirmEmailAsync(IdentityUser user,string token);
+		Task<IdentityUser> FindByEmailAsync(string email);
 		Task<SignInResult> PasswordSignIn(string username, string password);
+		Task<IList<Claim>> GetClaimsAsync(IdentityUser user);
+		Task<IList<string>> GetRolesAsync(IdentityUser user);
 
 	}
 }

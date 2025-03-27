@@ -50,15 +50,17 @@ namespace MediQ.Api.Controllers.Account.V1
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            var result = await _signInManager.PasswordSignInAsync(loginDto.Email, loginDto.Password, false, false);
-
-            if (result.Succeeded)
+            if (!ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(loginDto.Email);
-                var token = await _tokenService.GenerateToken(user);
+				throw new Exception(StatusCodes.Status403Forbidden.ToString());
+			}
+            var token = await _userService.Login(loginDto);
+
+
+            if (!string.IsNullOrEmpty(token))
+            {
                 return Ok(new { token });
             }
-
             return Unauthorized();
         }
         #endregion

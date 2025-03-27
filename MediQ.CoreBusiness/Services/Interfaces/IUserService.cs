@@ -5,7 +5,7 @@ namespace MediQ.CoreBusiness.Services.Interfaces
 	public interface IUserService
 	{
 		Task<bool> Register(RegisterDto register);
-		Task<bool> Login(LoginDto loginDto);
+		Task<string> Login(LoginDto loginDto);
 		Task<bool> EmailActivation(string activationcode);
 
 	}
