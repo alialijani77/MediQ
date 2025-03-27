@@ -54,6 +54,12 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			return false;
 		}
 		#endregion
+		#region Login
+		public Task<bool> Login(LoginDto loginDto)
+		{
+			throw new NotImplementedException();
+		}
+		#endregion
 		#region EmailActivation
 		public async Task<bool> EmailActivation(string activationcode)
 		{

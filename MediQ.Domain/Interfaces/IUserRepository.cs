@@ -13,6 +13,7 @@ namespace MediQ.Domain.Interfaces
 		Task<User> FindByIdAsync(string userId);
 		Task<IdentityResult> ConfirmEmailAsync(User user,string token);
 		Task<IdentityUser> FindUserByEmailAsync(string email);
+		Task<SignInResult> PasswordSignIn(string username, string password);
 
 	}
 }

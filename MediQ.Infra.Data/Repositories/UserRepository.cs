@@ -5,17 +5,21 @@ using MediQ.Infra.Data.DataContext;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace MediQ.Infra.Data.Repositories
 {
 	public class UserRepository : IUserRepository
 	{
 		private readonly BaseContext _context;
 		private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+
 		#region ctor
-		public UserRepository(BaseContext context, UserManager<User> userManager)
+		public UserRepository(BaseContext context, UserManager<User> userManager,SignInManager<User> signInManager)
 		{
 			_context = context;
 			_userManager = userManager;
+			_signInManager = signInManager;
 		}
 
 		public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
@@ -56,6 +60,11 @@ namespace MediQ.Infra.Data.Repositories
 		public async Task<IdentityUser> FindUserByEmailAsync(string email)
 		{
 			var result = await _userManager.FindByEmailAsync(email);
+			return result;
+		}
+		public async Task<SignInResult> PasswordSignIn(string username,string password)
+		{
+			var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
 			return result;
 		}
 
