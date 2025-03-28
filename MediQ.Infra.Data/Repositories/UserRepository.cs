@@ -63,10 +63,15 @@ namespace MediQ.Infra.Data.Repositories
 			var result = await _userManager.FindByEmailAsync(email);
 			return result;
 		}
-		public async Task<SignInResult> PasswordSignIn(string username,string password)
+		public async Task<SignInResult> PasswordSignIn(string username,string password,bool isPersistent)
 		{
-			var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
+			var result = await _signInManager.PasswordSignInAsync(username, password, isPersistent, false);
 			return result;
+		}
+
+		public async Task SignOutAsync()
+		{
+			await _signInManager.SignOutAsync();
 		}
 
 		public async Task<IList<Claim>> GetClaimsAsync(IdentityUser user)

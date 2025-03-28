@@ -61,7 +61,8 @@ namespace MediQ.CoreBusiness.Services.Implementions
 		#region Login
 		public async Task<string> Login(LoginDto loginDto)
 		{
-			var result = await _userRepository.PasswordSignIn(loginDto.Email, loginDto.Password);
+			await _userRepository.SignOutAsync();
+			var result = await _userRepository.PasswordSignIn(loginDto.Email, loginDto.Password, loginDto.IsPersistent);
 			if (result.Succeeded)
 			{
 				var user = await _userRepository.FindByEmailAsync(loginDto.Email);
