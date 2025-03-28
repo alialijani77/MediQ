@@ -5,6 +5,7 @@ using MediQ.CoreBusiness.Services.Interfaces;
 using MediQ.Domain.Entities.UserManagement;
 using MediQ.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Win32;
 
 namespace MediQ.CoreBusiness.Services.Implementions
 {
@@ -30,14 +31,13 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			{
 				return false;
 			}
-			var password = PasswordHelper.HashPassword(register.Password);
 
 			var user = new User();
 			user.Email = register.Email.Trim().ToLower();
 			user.UserName = register.Email.Trim().ToLower();
 			user.FirstName = register.Email.Trim().ToLower();
 			user.LastName = register.Email.Trim().ToLower();
-			var result = await _userRepository.CreateUser(user, password);
+			var result = await _userRepository.CreateUser(user, register.Password);
 
 			if(result.Succeeded)
 			{
@@ -51,8 +51,9 @@ namespace MediQ.CoreBusiness.Services.Implementions
                 <a href='{PathTools.Root}/api/v1/Account/Activate-Email?activationcode={token}'>فعالسازی حساب کاربری</a>";
 
 				var emailResult = await _emailService.SendEmail(user.Email, "فعالسازی حساب کاربری", body);
-				
-				if(emailResult) return true;
+
+				if (emailResult)
+					return true;
 				#endregion
 			}
 			return false;
@@ -62,6 +63,7 @@ namespace MediQ.CoreBusiness.Services.Implementions
 		public async Task<string> Login(LoginDto loginDto)
 		{
 			await _userRepository.SignOutAsync();
+
 			var result = await _userRepository.PasswordSignIn(loginDto.Email, loginDto.Password, loginDto.IsPersistent);
 			if (result.Succeeded)
 			{

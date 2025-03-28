@@ -7,16 +7,16 @@ namespace MediQ.Domain.Interfaces
 {
 	public interface IUserRepository
 	{
-		Task<IdentityResult> CreateUser(IdentityUser user, string password);
+		Task<IdentityResult> CreateUser(User user, string password);
 		Task<IdentityUser> IsExistsUserByEmail(string email);
 		Task<EmailSetting> GetDefaultEmail();
-		Task<string> GenerateChangeEmailTokenAsync(IdentityUser user, string email);
-		Task<IdentityUser> FindByIdAsync(string userId);
-		Task<IdentityResult> ConfirmEmailAsync(IdentityUser user,string token);
-		Task<IdentityUser> FindByEmailAsync(string email);
+		Task<string> GenerateChangeEmailTokenAsync(User user, string email);
+		Task<User> FindByIdAsync(string userId);
+		Task<IdentityResult> ConfirmEmailAsync(User user,string token);
+		Task<User> FindByEmailAsync(string email);
 		Task<SignInResult> PasswordSignIn(string username, string password, bool isPersistent);
-		Task<IList<Claim>> GetClaimsAsync(IdentityUser user);
-		Task<IList<string>> GetRolesAsync(IdentityUser user);
+		Task<IList<Claim>> GetClaimsAsync(User user);
+		Task<IList<string>> GetRolesAsync(User user);
 		Task SignOutAsync();
 
 	}

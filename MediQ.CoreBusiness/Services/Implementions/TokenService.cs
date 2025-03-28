@@ -34,7 +34,7 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			_expires = jwtSettings.ExpirationInMinutes;
 		}
 
-		public async Task<string> GenerateToken(IdentityUser user)
+		public async Task<string> GenerateToken(User user)
 		{
 			var signingCredentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
 			var claims = await GetClaimsAsync(user);
@@ -42,7 +42,7 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 		}
 
-		private async Task<List<Claim>> GetClaimsAsync(IdentityUser user)
+		private async Task<List<Claim>> GetClaimsAsync(User user)
 		{
 			var userClaims = await _userRepository.GetClaimsAsync(user);
 			var userRoles = await _userRepository.GetRolesAsync(user);
