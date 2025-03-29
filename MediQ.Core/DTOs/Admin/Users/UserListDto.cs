@@ -6,7 +6,7 @@
 		public string LastName { get; set; }
 		public string UserName { get; set; }
 		public string PhoneNumber { get; set; }
-		public string EmailConfirmed { get; set; }
-		public string AccessFailedCount { get; set; }
+		public bool EmailConfirmed { get; set; }
+		public int AccessFailedCount { get; set; }
 	}
 }

@@ -18,6 +18,7 @@ namespace MediQ.Domain.Interfaces
 		Task<IList<Claim>> GetClaimsAsync(User user);
 		Task<IList<string>> GetRolesAsync(User user);
 		Task SignOutAsync();
+		Task<IList<User>> GetAllUsers();
 
 	}
 }

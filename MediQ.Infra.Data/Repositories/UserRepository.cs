@@ -84,7 +84,12 @@ namespace MediQ.Infra.Data.Repositories
 		{
 			var result = await _userManager.GetRolesAsync(user);
 			return result;
+		}
 
+		public async Task<IList<User>> GetAllUsers()
+		{
+			var result =  _userManager.Users.ToList();
+			return result;
 		}
 	}
 }
