@@ -23,4 +23,8 @@
     <ProjectReference Include="..\MediQ.Infra.Ioc\MediQ.Infra.Ioc.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Admin\V1\" />
+  </ItemGroup>
+
 </Project>
