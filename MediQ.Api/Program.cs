@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics;
 using System.Reflection;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -24,9 +25,10 @@ try
 	builder.Host.UseNLog();
 	#endregion
 
-	#region RegisterDependencies
-	DependencyContainer.RegisterDependencies(builder.Services, connectionString);
-	#endregion
+    #region RegisterDependencies
+    DependencyContainer.RegisterDependencies(builder.Services, connectionString);
+    builder.Services.AddTransient<RequestTimingMiddleware>(); //ToDo: how to moved this line to IoC
+    #endregion
 
 	builder.Services.AddControllers();
 	// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -70,16 +72,19 @@ try
 
 	// Configure the HTTP request pipeline.
 
-	if (app.Environment.IsDevelopment())
-	{
-		app.UseSwagger();
-		app.UseSwaggerUI(options =>
-		{
-			options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-			options.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
-		});
-	}
-	app.UseCustomExceptionHandler();
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(options =>
+        {
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            options.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
+        });
+    }
+
+    app.UseMiddleware<RequestTimingMiddleware>();
+
+    app.UseCustomExceptionHandler();
 
 	app.UseHttpsRedirection();
 	app.UseAuthentication();
