@@ -15,62 +15,62 @@ var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentCla
 
 try
 {
-    var builder = WebApplication.CreateBuilder(args);
+	var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container.
-    var connectionString = builder.Configuration.GetConnectionString("SqlServerContext");
+	// Add services to the container.
+	var connectionString = builder.Configuration.GetConnectionString("SqlServerContext");
 
-    #region Nlog
-    builder.Logging.ClearProviders();
-    builder.Host.UseNLog();
-    #endregion
+	#region Nlog
+	builder.Logging.ClearProviders();
+	builder.Host.UseNLog();
+	#endregion
 
     #region RegisterDependencies
     DependencyContainer.RegisterDependencies(builder.Services, connectionString);
     builder.Services.AddTransient<RequestTimingMiddleware>(); //ToDo: how to moved this line to IoC
     #endregion
 
-    builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    builder.Services.AddEndpointsApiExplorer();
+	builder.Services.AddControllers();
+	// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+	builder.Services.AddEndpointsApiExplorer();
 
-    #region Swagger
-    builder.Services.AddSwaggerGen(options =>
-    {
-        options.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi.MediQ", Version = "v1" });
-        options.SwaggerDoc("v2", new OpenApiInfo { Title = "WebApi.MediQ", Version = "v2" });
+	#region Swagger
+	builder.Services.AddSwaggerGen(options =>
+	{
+		options.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi.MediQ", Version = "v1" });
+		options.SwaggerDoc("v2", new OpenApiInfo { Title = "WebApi.MediQ", Version = "v2" });
 
 
-        options.DocInclusionPredicate((doc, apiDescription) =>
-        {
-            if (!apiDescription.TryGetMethodInfo(out MethodInfo methodInfo)) return false;
+		options.DocInclusionPredicate((doc, apiDescription) =>
+		{
+			if (!apiDescription.TryGetMethodInfo(out MethodInfo methodInfo)) return false;
 
-            var version = methodInfo.DeclaringType
-                .GetCustomAttributes<ApiVersionAttribute>(true)
-                .SelectMany(attr => attr.Versions);
+			var version = methodInfo.DeclaringType
+				.GetCustomAttributes<ApiVersionAttribute>(true)
+				.SelectMany(attr => attr.Versions);
 
-            return version.Any(v => $"v{v.ToString()}" == doc);
-        });
-    });
-    #endregion
+			return version.Any(v => $"v{v.ToString()}" == doc);
+		});
+	});
+	#endregion
 
-    #region ApiVersioning
-    builder.Services.AddApiVersioning(option =>
-    {
-        option.DefaultApiVersion = new ApiVersion(1);
-        option.AssumeDefaultVersionWhenUnspecified = true;
-        option.ReportApiVersions = true;
-        option.ApiVersionReader = new UrlSegmentApiVersionReader();
-    }).AddApiExplorer();
-    #endregion
+	#region ApiVersioning
+	builder.Services.AddApiVersioning(option =>
+	{
+		option.DefaultApiVersion = new ApiVersion(1);
+		option.AssumeDefaultVersionWhenUnspecified = true;
+		option.ReportApiVersions = true;
+		option.ApiVersionReader = new UrlSegmentApiVersionReader();
+	}).AddApiExplorer();
+	#endregion
 
-    #region Identity
-    builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders();
-    #endregion
+	#region Identity
+	builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders();
+	#endregion
 
-    var app = builder.Build();
+	var app = builder.Build();
 
-    // Configure the HTTP request pipeline.
+	// Configure the HTTP request pipeline.
 
     if (app.Environment.IsDevelopment())
     {
@@ -86,19 +86,19 @@ try
 
     app.UseCustomExceptionHandler();
 
-    app.UseHttpsRedirection();
+	app.UseHttpsRedirection();
+	app.UseAuthentication();
+	app.UseAuthorization();
 
-    app.UseAuthorization();
+	app.MapControllers();
 
-    app.MapControllers();
-
-    app.Run();
+	app.Run();
 }
 catch (Exception ex)
 {
-    logger.Error(ex);
+	logger.Error(ex);
 }
 finally
 {
-    LogManager.Shutdown();
+	LogManager.Shutdown();
 }

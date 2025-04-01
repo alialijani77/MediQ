@@ -2,18 +2,18 @@
 {
 	public class EmailSetting : BaseEntity
 	{
-		public string From { get; set; }
+		public string From { get; init; }
 
-		public string Password { get; set; }
+		public string Password { get; init; }
 
-		public string SMTP { get; set; }
+		public string SMTP { get; init; }
 
-		public bool EnableSSL { get; set; }
+		public bool EnableSSL { get; init; }
 
-		public string DisplayName { get; set; }
+		public string DisplayName { get; init; }
 
-		public int Port { get; set; }
+		public int Port { get; init; }
 
-		public bool IsDefault { get; set; }
+		public bool IsDefault { get; init; }
 	}
 }
