@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Diagnostics;
 using System.Reflection;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
@@ -26,6 +27,7 @@ try
 
     #region RegisterDependencies
     DependencyContainer.RegisterDependencies(builder.Services, connectionString);
+    builder.Services.AddTransient<RequestTimingMiddleware>(); //ToDo: how to moved this line to IoC
     #endregion
 
     builder.Services.AddControllers();
@@ -79,6 +81,9 @@ try
             options.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
         });
     }
+
+    app.UseMiddleware<RequestTimingMiddleware>();
+
     app.UseCustomExceptionHandler();
 
     app.UseHttpsRedirection();
