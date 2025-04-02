@@ -59,5 +59,19 @@ namespace MediQ.Api.Controllers.Account.V1
 			return Unauthorized();
 		}
 		#endregion
+
+		#region EmailActivation
+		[HttpGet("Activate-Email")]
+		public async Task<IActionResult> EmailActivation(string activationcode)
+		{
+			var result = await _userService.EmailActivation(activationcode);
+
+			if (result)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "ایمیل مورد نظر فعال شد"));
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
+		#endregion
 	}
 }
