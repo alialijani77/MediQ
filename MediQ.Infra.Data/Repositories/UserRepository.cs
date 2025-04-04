@@ -91,5 +91,11 @@ namespace MediQ.Infra.Data.Repositories
 			var result =  _userManager.Users.ToList();
 			return result;
 		}
+
+		public async Task<IdentityResult> UpdateUser(User user)
+		{
+			var result = await _userManager.UpdateAsync(user);
+			return result;
+		}
 	}
 }
