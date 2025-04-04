@@ -28,5 +28,25 @@ namespace MediQ.CoreBusiness.Services.Implementions
 				AccessFailedCount = u.AccessFailedCount
 			}).ToList();
 		}
+
+		public async Task<UserListDto> GetUserById(string userId)
+		{
+			var user = await _userRepository.FindByIdAsync(userId);
+			if (user != null)
+			{
+				var userDto = new UserListDto()
+				{
+					Id = user.Id,
+					FirstName = user.FirstName,
+					LastName = user.LastName,
+					UserName = user.UserName,
+					PhoneNumber = user.PhoneNumber,
+					EmailConfirmed = user.EmailConfirmed,
+					AccessFailedCount = user.AccessFailedCount
+				};
+				return userDto;
+			}
+			return null;
+		}
 	}
 }

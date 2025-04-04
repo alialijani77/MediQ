@@ -38,6 +38,18 @@ namespace MediQ.Api.Controllers.Admin.V1
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 
+		[HttpPost("GetUserById")]
+		public async Task<IActionResult> GetUserById([FromBody]string userId)
+		{
+			var result = await _adminService.GetUserById(userId);
+			if (result != null)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
+
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
+
 		[HttpPost("CreateUser")]
 		public async Task<IActionResult> CreateUser(RegisterDto register)
 		{
