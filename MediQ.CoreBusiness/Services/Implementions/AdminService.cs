@@ -19,6 +19,7 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			var users = await _userRepository.GetAllUsers();
 			return users.Select(u => new UserListDto
 			{
+				Id = u.Id,
 				FirstName = u.FirstName,
 				LastName = u.LastName,
 				UserName = u.UserName,

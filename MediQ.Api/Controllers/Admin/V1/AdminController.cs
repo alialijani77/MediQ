@@ -30,9 +30,12 @@ namespace MediQ.Api.Controllers.Admin.V1
 		public async Task<IActionResult> GetAllUsers()
 		{
 			var result = await _adminService.GetAllUsers();
+			if (result != null)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
 
-			return Ok(result);
-			//throw new Exception(StatusCodes.Status404NotFound.ToString());
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 
 		[HttpPost("CreateUser")]
