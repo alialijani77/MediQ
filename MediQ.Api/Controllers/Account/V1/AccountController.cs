@@ -24,7 +24,7 @@ namespace MediQ.Api.Controllers.Account.V1
 
 		#region Register
 		[HttpPost("Register")]
-		public async Task<IActionResult> Register(RegisterDto register)
+		public virtual async Task<IActionResult> Register(RegisterDto register)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -43,7 +43,7 @@ namespace MediQ.Api.Controllers.Account.V1
 
 		#region Login
 		[HttpPost("login")]
-		public async Task<IActionResult> Login(LoginDto loginDto)
+		public virtual async Task<IActionResult> Login(LoginDto loginDto)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -62,7 +62,7 @@ namespace MediQ.Api.Controllers.Account.V1
 
 		#region EmailActivation
 		[HttpGet("Activate-Email")]
-		public async Task<IActionResult> EmailActivation(string activationcode)
+		public virtual async Task<IActionResult> EmailActivation(string activationcode)
 		{
 			var result = await _userService.EmailActivation(activationcode);
 
