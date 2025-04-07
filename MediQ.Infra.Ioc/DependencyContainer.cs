@@ -25,6 +25,8 @@ namespace MediQ.Infra.Ioc
 
 			#region Repositories
 			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<IRoleRepository, RoleRepository>();
+
 			#endregion
 		}
 	}
