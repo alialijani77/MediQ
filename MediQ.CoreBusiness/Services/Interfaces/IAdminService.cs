@@ -1,4 +1,5 @@
-﻿using MediQ.Core.DTOs.Admin.Users;
+﻿using MediQ.Core.DTOs.Account.User;
+using MediQ.Core.DTOs.Admin.Users;
 
 namespace MediQ.CoreBusiness.Services.Interfaces
 {
@@ -6,6 +7,8 @@ namespace MediQ.CoreBusiness.Services.Interfaces
 	{
 		Task<IList<UserListDto>> GetAllUsers();
 		Task<UserListDto> GetUserById(string userId);
+		Task<bool> UpdateUserByAdmin(UpdateUserDto updateUserDto);
+
 
 	}
 }

@@ -14,6 +14,7 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			_userRepository = userRepository;
 		}
 		#endregion
+		#region User
 		public async Task<IList<UserListDto>> GetAllUsers()
 		{
 			var users = await _userRepository.GetAllUsers();
@@ -48,5 +49,31 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			}
 			return null;
 		}
+
+		public async Task<bool> UpdateUserByAdmin(UpdateUserDto updateUserDto)
+		{
+			var user = await _userRepository.FindByIdAsync(updateUserDto.Id);
+			if (user != null)
+			{
+				user.FirstName = updateUserDto.FirstName;
+				user.LastName = updateUserDto.LastName;
+				user.PhoneNumber = updateUserDto.PhoneNumber;
+
+				var result = await _userRepository.UpdateUser(user);
+				if(result.Succeeded)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
+		}
+		#endregion
 	}
 }

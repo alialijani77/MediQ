@@ -2,7 +2,6 @@
 using MediQ.Core.DTOs.Account.User;
 using MediQ.Core.DTOs.Admin.Users;
 using MediQ.Core.DTOs.ApiResult;
-using MediQ.CoreBusiness.Services.Implementions;
 using MediQ.CoreBusiness.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,7 +39,7 @@ namespace MediQ.Api.Controllers.Admin.V1
 		}
 
 		[HttpPost("GetUserById")]
-		public virtual async Task<IActionResult> GetUserById([FromBody]string userId)
+		public virtual async Task<IActionResult> GetUserById([FromBody] string userId)
 		{
 			var result = await _adminService.GetUserById(userId);
 			if (result != null)
@@ -76,11 +75,11 @@ namespace MediQ.Api.Controllers.Admin.V1
 				throw new Exception(StatusCodes.Status403Forbidden.ToString());
 
 			}
-			var result = true;// await _userService.Register(updateuser);
+			var result = await _adminService.UpdateUserByAdmin(updateuser);
 
 			if (result)
 			{
-				return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "ایمیل فعالسازی به کاربر افزوده شده ارسال شد."));
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "کاربر آپدیت شد."));
 			}
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
