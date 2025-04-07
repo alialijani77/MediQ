@@ -7,6 +7,7 @@ namespace MediQ.Domain.Entities.UserManagement
 		#region Properties
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
+		public bool IsDelete { get; set; } = false;
 		#endregion
 	}
 }
