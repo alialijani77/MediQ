@@ -83,6 +83,17 @@ namespace MediQ.Api.Controllers.Admin.V1
 			}
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
-		#endregion
-	}
+
+        [HttpPost("DeleteUserById")]
+        public virtual async Task<IActionResult> DeleteUserById([FromBody] string userId)
+        {
+            var result = await _userService.Delete(userId);
+            if (result)
+            {
+                return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "کاربر حذف شد."));
+            }
+            throw new Exception(StatusCodes.Status404NotFound.ToString());
+        }
+        #endregion
+    }
 }
