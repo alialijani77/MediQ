@@ -53,26 +53,16 @@ namespace MediQ.CoreBusiness.Services.Implementions
 		public async Task<bool> UpdateUserByAdmin(UpdateUserDto updateUserDto)
 		{
 			var user = await _userRepository.FindByIdAsync(updateUserDto.Id);
-			if (user != null)
-			{
-				user.FirstName = updateUserDto.FirstName;
-				user.LastName = updateUserDto.LastName;
-				user.PhoneNumber = updateUserDto.PhoneNumber;
-
-				var result = await _userRepository.UpdateUser(user);
-				if (result.Succeeded)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			else
+			if (user == null)
 			{
 				return false;
 			}
+			user.FirstName = updateUserDto.FirstName;
+			user.LastName = updateUserDto.LastName;
+			user.PhoneNumber = updateUserDto.PhoneNumber;
+
+			var result = await _userRepository.UpdateUser(user);
+			return result.Succeeded;
 		}
 
 		public async Task<bool> DeleteUserByAdmin(string userId)
