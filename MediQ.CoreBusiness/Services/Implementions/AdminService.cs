@@ -60,7 +60,7 @@ namespace MediQ.CoreBusiness.Services.Implementions
 				user.PhoneNumber = updateUserDto.PhoneNumber;
 
 				var result = await _userRepository.UpdateUser(user);
-				if(result.Succeeded)
+				if (result.Succeeded)
 				{
 					return true;
 				}
@@ -73,6 +73,18 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			{
 				return false;
 			}
+		}
+
+		public async Task<bool> DeleteUserByAdmin(string userId)
+		{
+			var user = await _userRepository.FindByIdAsync(userId);
+			if (user == null)
+			{
+				return false;
+			}
+			user.IsDelete = true;
+			var result = await _userRepository.UpdateUser(user);
+			return result.Succeeded;
 		}
 		#endregion
 	}

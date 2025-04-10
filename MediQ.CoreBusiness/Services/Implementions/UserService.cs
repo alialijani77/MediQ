@@ -88,18 +88,5 @@ namespace MediQ.CoreBusiness.Services.Implementions
             return false;
         }
         #endregion
-
-        public async Task<bool> Delete(string userId)
-        {
-            var user = await _userRepository.FindByIdAsync(userId);
-            if (user == null)
-            {
-                return false;
-            }
-
-            user.IsDelete = true;
-            var result = await _userRepository.UpdateUser(user);
-            return result.Succeeded;
-        }
     }
 }

@@ -7,7 +7,5 @@ namespace MediQ.CoreBusiness.Services.Interfaces
 		Task<bool> Register(RegisterDto register);
 		Task<string> Login(LoginDto loginDto);
 		Task<bool> EmailActivation(string activationcode);
-		Task<bool> Delete(string userId);
-
     }
 }

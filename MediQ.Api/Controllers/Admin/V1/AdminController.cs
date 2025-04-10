@@ -87,7 +87,7 @@ namespace MediQ.Api.Controllers.Admin.V1
         [HttpPost("DeleteUserById")]
         public virtual async Task<IActionResult> DeleteUserById([FromBody] string userId)
         {
-            var result = await _userService.Delete(userId);
+            var result = await _adminService.DeleteUserByAdmin(userId);
             if (result)
             {
                 return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "کاربر حذف شد."));

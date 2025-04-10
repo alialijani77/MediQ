@@ -8,7 +8,6 @@ namespace MediQ.CoreBusiness.Services.Interfaces
 		Task<IList<UserListDto>> GetAllUsers();
 		Task<UserListDto> GetUserById(string userId);
 		Task<bool> UpdateUserByAdmin(UpdateUserDto updateUserDto);
-
-
+		Task<bool> DeleteUserByAdmin(string userId);
 	}
 }
