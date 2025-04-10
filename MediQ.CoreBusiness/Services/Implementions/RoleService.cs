@@ -22,6 +22,7 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			var roles = await _roleRepository.GetAllRoles();
 			return roles.Select(u => new RoleListDto
 			{
+				Id = u.Id,
 				Name = u.Name,
 				Description = u.Description,
 			}).ToList();
