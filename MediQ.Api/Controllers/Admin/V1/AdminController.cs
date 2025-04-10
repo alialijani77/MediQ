@@ -15,13 +15,15 @@ namespace MediQ.Api.Controllers.Admin.V1
 
 		private readonly IAdminService _adminService;
 		private readonly IUserService _userService;
+		private readonly IRoleService _roleService;
 
 
 		#region ctor
-		public AdminController(IAdminService adminService, IUserService userService)
+		public AdminController(IAdminService adminService, IUserService userService, IRoleService roleService)
 		{
 			_adminService = adminService;
 			_userService = userService;
+			_roleService = roleService;
 		}
 		#endregion
 
@@ -94,6 +96,20 @@ namespace MediQ.Api.Controllers.Admin.V1
             }
             throw new Exception(StatusCodes.Status404NotFound.ToString());
         }
-        #endregion
-    }
+		#endregion
+
+		#region Roles
+		[HttpPost("GetAllUsers")]
+		public virtual async Task<IActionResult> GetAllRoles()
+		{
+			var result = await _roleService.GetAllRoles();
+			if (result != null)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
+
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
+		#endregion
+	}
 }
