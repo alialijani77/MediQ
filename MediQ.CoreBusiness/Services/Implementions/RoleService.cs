@@ -1,5 +1,8 @@
-﻿using MediQ.CoreBusiness.Services.Interfaces;
+﻿using MediQ.Core.DTOs.Account.Role;
+using MediQ.Core.DTOs.Admin.Users;
+using MediQ.CoreBusiness.Services.Interfaces;
 using MediQ.Domain.Interfaces;
+using MediQ.Infra.Data.Repositories;
 
 namespace MediQ.CoreBusiness.Services.Implementions
 {
@@ -14,7 +17,15 @@ namespace MediQ.CoreBusiness.Services.Implementions
 		}
 		#endregion
 		#region Role
-
+		public async Task<IList<RoleListDto>> GetAllRoles()
+		{
+			var roles = await _roleRepository.GetAllRoles();
+			return roles.Select(u => new RoleListDto
+			{
+				Name = u.Name,
+				Description = u.Description,
+			}).ToList();
+		}
 		#endregion
 	}
 }
