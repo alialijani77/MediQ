@@ -20,6 +20,13 @@ namespace MediQ.Infra.Data.Repositories
 			var result = _roleManager.Roles.ToList();
 			return result;
 		}
+
+
+		public async Task<IdentityResult> CreateRole(Role role)
+		{
+			var result = await _roleManager.CreateAsync(role);
+			return result;
+		}
 		#endregion
 
 	}
