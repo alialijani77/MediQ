@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using MediQ.Core.DTOs.Account.Role;
 using MediQ.Core.DTOs.Account.User;
 using MediQ.Core.DTOs.Admin.Users;
 using MediQ.Core.DTOs.ApiResult;
@@ -103,6 +104,18 @@ namespace MediQ.Api.Controllers.Admin.V1
 		public virtual async Task<IActionResult> GetAllRoles()
 		{
 			var result = await _roleService.GetAllRoles();
+			if (result != null)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
+
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
+
+		[HttpPost("CreateRole")]
+		public virtual async Task<IActionResult> CreateRole(AddNewRoleDto newRoleDto)
+		{
+			var result = await _roleService.CreateRole(newRoleDto);
 			if (result != null)
 			{
 				return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));

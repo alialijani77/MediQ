@@ -1,8 +1,7 @@
 ﻿using MediQ.Core.DTOs.Account.Role;
-using MediQ.Core.DTOs.Admin.Users;
 using MediQ.CoreBusiness.Services.Interfaces;
+using MediQ.Domain.Entities.UserManagement;
 using MediQ.Domain.Interfaces;
-using MediQ.Infra.Data.Repositories;
 
 namespace MediQ.CoreBusiness.Services.Implementions
 {
@@ -26,6 +25,16 @@ namespace MediQ.CoreBusiness.Services.Implementions
 				Name = u.Name,
 				Description = u.Description,
 			}).ToList();
+		}
+
+
+		public async Task<bool> CreateRole(AddNewRoleDto newRoleDto)
+		{
+			Role role = new Role();
+			role.Name = newRoleDto.Name;
+			role.Description = newRoleDto.Description;
+			var result = await _roleRepository.CreateRole(role);
+			return result.Succeeded;
 		}
 		#endregion
 	}
