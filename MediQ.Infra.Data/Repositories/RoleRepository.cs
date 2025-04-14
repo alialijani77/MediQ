@@ -33,6 +33,12 @@ namespace MediQ.Infra.Data.Repositories
 			var result = await _roleManager.UpdateAsync(role);
 			return result;
 		}
+
+		public async Task<Role> FindByIdAsync(string roleId)
+		{
+			var result = await _roleManager.FindByIdAsync(roleId);
+			return result;
+		}
 		#endregion
 
 	}
