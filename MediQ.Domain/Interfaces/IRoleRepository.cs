@@ -7,5 +7,6 @@ namespace MediQ.Domain.Interfaces
 	{
 		Task<IList<Role>> GetAllRoles();
 		Task<IdentityResult> CreateRole(Role role);
+		Task<IdentityResult> UpdateRole(Role role);
 	}
 }
