@@ -5,37 +5,50 @@ using MediQ.Domain.Interfaces;
 
 namespace MediQ.CoreBusiness.Services.Implementions
 {
-	public class RoleService : IRoleService
-	{
-		private readonly IRoleRepository _roleRepository;
+    public class RoleService : IRoleService
+    {
+        private readonly IRoleRepository _roleRepository;
 
-		#region ctor
-		public RoleService(IRoleRepository roleRepository)
-		{
-			_roleRepository = roleRepository;
-		}
-		#endregion
-		#region Role
-		public async Task<IList<RoleListDto>> GetAllRoles()
-		{
-			var roles = await _roleRepository.GetAllRoles();
-			return roles.Select(u => new RoleListDto
-			{
-				Id = u.Id,
-				Name = u.Name,
-				Description = u.Description,
-			}).ToList();
-		}
+        #region ctor
+        public RoleService(IRoleRepository roleRepository)
+        {
+            _roleRepository = roleRepository;
+        }
+        #endregion
+        #region Role
+        public async Task<IList<RoleListDto>> GetAllRoles()
+        {
+            var roles = await _roleRepository.GetAllRoles();
+            return roles.Select(u => new RoleListDto
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Description = u.Description,
+            }).ToList();
+        }
 
 
-		public async Task<bool> CreateRole(AddNewRoleDto newRoleDto)
-		{
-			Role role = new Role();
-			role.Name = newRoleDto.Name;
-			role.Description = newRoleDto.Description;
-			var result = await _roleRepository.CreateRole(role);
-			return result.Succeeded;
-		}
-		#endregion
-	}
+        public async Task<bool> CreateRole(AddNewRoleDto newRoleDto)
+        {
+            Role role = new Role();
+            role.Name = newRoleDto.Name;
+            role.Description = newRoleDto.Description;
+            var result = await _roleRepository.CreateRole(role);
+            return result.Succeeded;
+        }
+
+        public async Task<bool> UpdateRole(UpdateRoleDto updateRoleDto)
+        {
+            var role = await _roleRepository.FindByIdAsync(updateRoleDto.Id);
+            if (role is not null)
+            {
+                role.Name = updateRoleDto.Name;
+                role.Description = updateRoleDto.Description;
+                var identityResult = await _roleRepository.UpdateRole(role);
+                return identityResult.Succeeded;
+            }
+            return false;
+        }
+        #endregion
+    }
 }
