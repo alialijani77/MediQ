@@ -6,5 +6,6 @@ namespace MediQ.CoreBusiness.Services.Interfaces
 	{
 		Task<IList<RoleListDto>> GetAllRoles();
 		Task<bool> CreateRole(AddNewRoleDto newRoleDto);
+		Task<bool> UpdateRole(UpdateRoleDto updateRoleDto);
 	}
 }
