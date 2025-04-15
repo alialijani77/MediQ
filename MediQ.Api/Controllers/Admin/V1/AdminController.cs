@@ -123,6 +123,18 @@ namespace MediQ.Api.Controllers.Admin.V1
 			}
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
-		#endregion
-	}
+
+        [HttpPost("UpdateRole")]
+        public virtual async Task<IActionResult> UpdateRole(UpdateRoleDto updateRoleDto)
+        {
+            var result = await _roleService.UpdateRole(updateRoleDto);
+            if (result)
+            {
+                return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
+
+            }
+            throw new Exception(StatusCodes.Status404NotFound.ToString());
+        }
+        #endregion
+    }
 }
