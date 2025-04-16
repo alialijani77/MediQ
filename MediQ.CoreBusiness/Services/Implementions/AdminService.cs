@@ -1,5 +1,7 @@
-﻿using MediQ.Core.DTOs.Admin.Users;
+﻿using MediQ.Core.DTOs.Account.User;
+using MediQ.Core.DTOs.Admin.Users;
 using MediQ.CoreBusiness.Services.Interfaces;
+using MediQ.Domain.Entities.UserManagement;
 using MediQ.Domain.Interfaces;
 
 namespace MediQ.CoreBusiness.Services.Implementions
@@ -75,6 +77,22 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			user.IsDelete = true;
 			var result = await _userRepository.UpdateUser(user);
 			return result.Succeeded;
+		}
+
+		#endregion
+
+		#region UserRole
+
+		public async Task<bool> AddUserRole(AddUserRoleDto addUserRoleDto)
+		{
+			var user = await _userRepository.FindByIdAsync(addUserRoleDto.UserId);
+			if (user == null)
+			{
+				return false;
+			}
+			var result = await _userRepository.AddUserRole(user, addUserRoleDto.RoleName);
+			return result.Succeeded;
+
 		}
 		#endregion
 	}
