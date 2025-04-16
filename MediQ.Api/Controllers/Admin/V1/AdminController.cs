@@ -135,6 +135,20 @@ namespace MediQ.Api.Controllers.Admin.V1
             }
             throw new Exception(StatusCodes.Status404NotFound.ToString());
         }
-        #endregion
-    }
+		#endregion
+
+		#region UserRole
+		[HttpPost("AddUserRole")]
+		public virtual async Task<IActionResult> AddUserRole(AddUserRoleDto addUserRole)
+		{
+			var result = await _adminService.AddUserRole(addUserRole);
+			if (result)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
+
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
+		#endregion
+	}
 }
