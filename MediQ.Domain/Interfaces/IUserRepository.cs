@@ -20,6 +20,8 @@ namespace MediQ.Domain.Interfaces
 		Task SignOutAsync();
 		Task<IList<User>> GetAllUsers();
 		Task<IdentityResult> UpdateUser(User user);
+		Task<IdentityResult> AddUserRole(User user, string role);
+
 
 
 	}
