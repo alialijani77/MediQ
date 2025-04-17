@@ -94,6 +94,17 @@ namespace MediQ.CoreBusiness.Services.Implementions
 			return result.Succeeded;
 
 		}
+
+		public async Task<IList<string>> GetAllUserRoles(string userId)
+		{
+			var user = await _userRepository.FindByIdAsync(userId);
+			if (user == null)
+			{
+				return null;
+			}
+			var result = await _userRepository.GetRolesAsync(user);
+			return result;
+		}
 		#endregion
 	}
 }

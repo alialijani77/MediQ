@@ -10,5 +10,6 @@ namespace MediQ.CoreBusiness.Services.Interfaces
 		Task<bool> UpdateUserByAdmin(UpdateUserDto updateUserDto);
 		Task<bool> DeleteUserByAdmin(string userId);
 		Task<bool> AddUserRole(AddUserRoleDto addUserRoleDto);
+		Task<IList<string>> GetAllUserRoles(string userId);
 	}
 }
