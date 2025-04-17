@@ -149,6 +149,18 @@ namespace MediQ.Api.Controllers.Admin.V1
 			}
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
+
+		[HttpPost("GetAllUserRoles")]
+		public virtual async Task<IActionResult> GetAllUserRoles([FromBody] string userId)
+		{
+			var result = await _adminService.GetAllUserRoles(userId);
+			if (result.Any() && result != null)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
+
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
 		#endregion
 	}
 }
