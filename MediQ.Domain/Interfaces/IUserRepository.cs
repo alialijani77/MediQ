@@ -21,8 +21,6 @@ namespace MediQ.Domain.Interfaces
 		Task<IList<User>> GetAllUsers();
 		Task<IdentityResult> UpdateUser(User user);
 		Task<IdentityResult> AddUserRole(User user, string role);
-
-
-
+		Task<IList<string>> GetAllUserRoles(User user);
 	}
 }

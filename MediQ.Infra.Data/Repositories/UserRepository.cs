@@ -103,5 +103,11 @@ namespace MediQ.Infra.Data.Repositories
 			var result = await _userManager.AddToRoleAsync(user, role);
 			return result;
 		}
+
+		public async Task<IList<string>> GetAllUserRoles(User user)
+		{
+			var result = await _userManager.GetRolesAsync(user);
+			return result;
+		}
 	}
 }
