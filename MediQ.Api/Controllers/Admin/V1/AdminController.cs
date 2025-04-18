@@ -41,7 +41,7 @@ namespace MediQ.Api.Controllers.Admin.V1
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 
-		[HttpPost("GetUserById")]
+		[HttpGet("GetUserById")]
 		public virtual async Task<IActionResult> GetUserById([FromBody] string userId)
 		{
 			var result = await _adminService.GetUserById(userId);
@@ -87,20 +87,20 @@ namespace MediQ.Api.Controllers.Admin.V1
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 
-        [HttpPost("DeleteUserById")]
-        public virtual async Task<IActionResult> DeleteUserById([FromBody] string userId)
-        {
-            var result = await _adminService.DeleteUserByAdmin(userId);
-            if (result)
-            {
-                return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "کاربر حذف شد."));
-            }
-            throw new Exception(StatusCodes.Status404NotFound.ToString());
-        }
+		[HttpPost("DeleteUserById")]
+		public virtual async Task<IActionResult> DeleteUserById([FromBody] string userId)
+		{
+			var result = await _adminService.DeleteUserByAdmin(userId);
+			if (result)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "کاربر حذف شد."));
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
 		#endregion
 
 		#region Roles
-		[HttpPost("GetAllUsers")]
+		[HttpGet("GetAllUsers")]
 		public virtual async Task<IActionResult> GetAllRoles()
 		{
 			var result = await _roleService.GetAllRoles();
@@ -124,17 +124,17 @@ namespace MediQ.Api.Controllers.Admin.V1
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 
-        [HttpPost("UpdateRole")]
-        public virtual async Task<IActionResult> UpdateRole(UpdateRoleDto updateRoleDto)
-        {
-            var result = await _roleService.UpdateRole(updateRoleDto);
-            if (result)
-            {
-                return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
+		[HttpPost("UpdateRole")]
+		public virtual async Task<IActionResult> UpdateRole(UpdateRoleDto updateRoleDto)
+		{
+			var result = await _roleService.UpdateRole(updateRoleDto);
+			if (result)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(result, true, ""));
 
-            }
-            throw new Exception(StatusCodes.Status404NotFound.ToString());
-        }
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
 		#endregion
 
 		#region UserRole
@@ -150,7 +150,7 @@ namespace MediQ.Api.Controllers.Admin.V1
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 
-		[HttpPost("GetAllUserRoles")]
+		[HttpGet("GetAllUserRoles")]
 		public virtual async Task<IActionResult> GetAllUserRoles([FromBody] string userId)
 		{
 			var result = await _adminService.GetAllUserRoles(userId);
