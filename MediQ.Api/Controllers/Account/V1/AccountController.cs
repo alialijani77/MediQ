@@ -62,9 +62,9 @@ namespace MediQ.Api.Controllers.Account.V1
 
 		#region EmailActivation
 		[HttpGet("Activate-Email")]
-		public virtual async Task<IActionResult> EmailActivation(string activationcode)
-		{
-			var result = await _userService.EmailActivation(activationcode);
+		public virtual async Task<IActionResult> EmailActivation([FromQuery]string activationCode,[FromQuery]string userId)
+	{
+			var result = await _userService.EmailActivation(activationCode, userId);
 
 			if (result)
 			{

@@ -41,9 +41,9 @@ namespace MediQ.Infra.Data.Repositories
 			return result;
 		}
 
-		public async Task<string> GenerateChangeEmailTokenAsync(User user, string email)
+		public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
 		{
-			var result = await _userManager.GenerateChangeEmailTokenAsync(user, email);
+			var result = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 			return result;
 		}
 
