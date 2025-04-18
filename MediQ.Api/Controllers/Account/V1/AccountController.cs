@@ -62,8 +62,8 @@ namespace MediQ.Api.Controllers.Account.V1
 
 		#region EmailActivation
 		[HttpGet("Activate-Email")]
-		public virtual async Task<IActionResult> EmailActivation([FromQuery]string activationCode,[FromQuery]string userId)
-	{
+		public virtual async Task<IActionResult> EmailActivation([FromQuery] string activationCode, [FromQuery] string userId)
+		{
 			var result = await _userService.EmailActivation(activationCode, userId);
 
 			if (result)
@@ -71,6 +71,20 @@ namespace MediQ.Api.Controllers.Account.V1
 				return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "ایمیل مورد نظر فعال شد"));
 			}
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
+		}
+		#endregion
+
+		#region ForgotPassword
+		[HttpGet("ForgotPassword")]
+		public virtual async Task<IActionResult> ForgotPassword()
+		{
+			//var result = await _userService
+
+			//if (result)
+			//{
+			//	return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "ایمیل مورد نظر فعال شد"));
+			//}
+			//throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 		#endregion
 	}
