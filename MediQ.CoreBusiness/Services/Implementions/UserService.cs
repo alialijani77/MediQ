@@ -84,6 +84,14 @@ namespace MediQ.CoreBusiness.Services.Implementions
             if (result.Succeeded) return true;
             return false;
         }
-        #endregion
-    }
+		#endregion
+
+		#region ForgotPassword
+
+		public Task<bool> ForgotPassword(ForgotPasswordConfirmationDto forgotPassword)
+		{
+			throw new NotImplementedException();
+		}
+		#endregion
+	}
 }

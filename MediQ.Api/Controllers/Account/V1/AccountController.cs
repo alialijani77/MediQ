@@ -76,8 +76,13 @@ namespace MediQ.Api.Controllers.Account.V1
 
 		#region ForgotPassword
 		[HttpGet("ForgotPassword")]
-		public virtual async Task<IActionResult> ForgotPassword()
+		public virtual async Task<IActionResult> ForgotPassword(ForgotPasswordConfirmationDto forgotPassword)
 		{
+			if (!ModelState.IsValid)
+			{
+				throw new Exception(StatusCodes.Status403Forbidden.ToString());
+
+			}
 			//var result = await _userService
 
 			//if (result)
