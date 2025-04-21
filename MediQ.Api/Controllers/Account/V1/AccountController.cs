@@ -83,13 +83,13 @@ namespace MediQ.Api.Controllers.Account.V1
 				throw new Exception(StatusCodes.Status403Forbidden.ToString());
 
 			}
-			//var result = await _userService
+			var result = await _userService.ForgotPassword(forgotPassword);
 
-			//if (result)
-			//{
-			//	return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "ایمیل مورد نظر فعال شد"));
-			//}
-			//throw new Exception(StatusCodes.Status404NotFound.ToString());
+			if (result)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "لطفا ایمیل خود را بررسی کنید"));
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 		#endregion
 	}
