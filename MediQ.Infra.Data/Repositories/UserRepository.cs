@@ -109,5 +109,11 @@ namespace MediQ.Infra.Data.Repositories
 			var result = await _userManager.GetRolesAsync(user);
 			return result;
 		}
+
+		public async Task<bool> IsEmailConfirmedAsync(User user)
+		{
+			var result = await _userManager.IsEmailConfirmedAsync(user);
+			return result;
+		}
 	}
 }
