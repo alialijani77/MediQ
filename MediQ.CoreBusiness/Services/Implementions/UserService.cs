@@ -88,9 +88,18 @@ namespace MediQ.CoreBusiness.Services.Implementions
 
 		#region ForgotPassword
 
-		public Task<bool> ForgotPassword(ForgotPasswordConfirmationDto forgotPassword)
+		public async Task<bool> ForgotPassword(ForgotPasswordConfirmationDto forgotPassword)
 		{
-			throw new NotImplementedException();
+			var user = await _userRepository.FindByEmailAsync(forgotPassword.Email);
+			if (user == null)
+			{
+				return false;
+			}
+            if(!await _userRepository.IsEmailConfirmedAsync(user))
+            {
+                return false;
+            }
+
 		}
 		#endregion
 	}
