@@ -92,5 +92,13 @@ namespace MediQ.Api.Controllers.Account.V1
 			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 		#endregion
+
+		#region ResetPassword
+		[HttpGet("ResetPassword")]
+		public virtual async Task<IActionResult> ResetPassword(string token,string userId)
+		{
+			
+		}
+		#endregion
 	}
 }
