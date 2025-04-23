@@ -95,7 +95,7 @@ namespace MediQ.Api.Controllers.Account.V1
 
 		#region ResetPassword
 		[HttpGet("ResetPassword")]
-		public virtual async Task<IActionResult> ResetPassword(string token,string userId)
+		public virtual async Task<IActionResult> ResetPassword(ResetPasswordDto resetPassword)
 		{
 			
 		}
