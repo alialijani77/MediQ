@@ -24,5 +24,7 @@ namespace MediQ.Domain.Interfaces
 		Task<IList<string>> GetAllUserRoles(User user);
 		Task<bool> IsEmailConfirmedAsync(User user);
 		Task<string> GeneratePasswordResetTokenAsync(User user);
+		Task<User> FindByNameAsync(string name);
+
 	}
 }

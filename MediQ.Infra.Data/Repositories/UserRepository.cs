@@ -121,5 +121,11 @@ namespace MediQ.Infra.Data.Repositories
 			var result = await _userManager.GeneratePasswordResetTokenAsync(user);
 			return result;
 		}
+
+		public async Task<User> FindByNameAsync(string name)
+		{
+			var result = await _userManager.FindByNameAsync(name);
+			return result;
+		}
 	}
 }
