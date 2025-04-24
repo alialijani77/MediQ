@@ -117,5 +117,12 @@ namespace MediQ.CoreBusiness.Services.Implementions
 
 		}
 		#endregion
+
+		#region ResetPassword
+		public Task<bool> ResetPassword(ResetPasswordDto resetPassword)
+		{
+			throw new NotImplementedException();
+		}
+		#endregion
 	}
 }

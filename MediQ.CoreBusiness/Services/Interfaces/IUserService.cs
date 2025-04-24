@@ -8,6 +8,8 @@ namespace MediQ.CoreBusiness.Services.Interfaces
 		Task<string> Login(LoginDto loginDto);
 		Task<bool> EmailActivation(string activationcode, string userId);
 		Task<bool> ForgotPassword(ForgotPasswordConfirmationDto forgotPassword);
+		Task<bool> ResetPassword(ResetPasswordDto resetPassword);
+
 
 	}
 }
