@@ -3,6 +3,7 @@ using MediQ.Core.Statics;
 using MediQ.CoreBusiness.Services.Interfaces;
 using MediQ.Domain.Entities.UserManagement;
 using MediQ.Domain.Interfaces;
+using Microsoft.Win32;
 
 namespace MediQ.CoreBusiness.Services.Implementions
 {
@@ -119,9 +120,16 @@ namespace MediQ.CoreBusiness.Services.Implementions
 		#endregion
 
 		#region ResetPassword
-		public Task<bool> ResetPassword(ResetPasswordDto resetPassword)
+		public async Task<bool> ResetPassword(ResetPasswordDto resetPassword)
 		{
-			throw new NotImplementedException();
+			var user = await _userRepository.FindByIdAsync(resetPassword.UserId);
+			if (user == null)
+			{
+				return false;
+			}
+			var result = await _userRepository.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
+
+			return result.Succeeded;
 		}
 		#endregion
 	}

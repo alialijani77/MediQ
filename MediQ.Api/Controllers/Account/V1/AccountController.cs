@@ -97,7 +97,18 @@ namespace MediQ.Api.Controllers.Account.V1
 		[HttpGet("ResetPassword")]
 		public virtual async Task<IActionResult> ResetPassword(ResetPasswordDto resetPassword)
 		{
-			
+			if (!ModelState.IsValid)
+			{
+				throw new Exception(StatusCodes.Status403Forbidden.ToString());
+
+			}
+			var result = await _userService.ResetPassword(resetPassword);
+
+			if (result)
+			{
+				return new JsonResult(ApiResultDto<bool>.CreateSuccess(true, true, "کلمه عبور با موفقیت تغییر یافت"));
+			}
+			throw new Exception(StatusCodes.Status404NotFound.ToString());
 		}
 		#endregion
 	}
