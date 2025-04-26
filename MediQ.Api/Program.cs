@@ -65,7 +65,7 @@ try
 	#endregion
 
 	#region Identity
-	builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders();
+	builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrorDescriber>();
 	#endregion
 
 	var app = builder.Build();

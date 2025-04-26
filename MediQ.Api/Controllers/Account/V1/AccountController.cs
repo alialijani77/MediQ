@@ -75,7 +75,7 @@ namespace MediQ.Api.Controllers.Account.V1
 		#endregion
 
 		#region ForgotPassword
-		[HttpGet("ForgotPassword")]
+		[HttpPost("ForgotPassword")]
 		public virtual async Task<IActionResult> ForgotPassword(ForgotPasswordConfirmationDto forgotPassword)
 		{
 			if (!ModelState.IsValid)
@@ -94,7 +94,7 @@ namespace MediQ.Api.Controllers.Account.V1
 		#endregion
 
 		#region ResetPassword
-		[HttpGet("ResetPassword")]
+		[HttpPost("ResetPassword")]
 		public virtual async Task<IActionResult> ResetPassword(ResetPasswordDto resetPassword)
 		{
 			if (!ModelState.IsValid)
