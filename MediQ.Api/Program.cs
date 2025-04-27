@@ -66,6 +66,13 @@ try
 
 	#region Identity
 	builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrorDescriber>();
+	builder.Services.Configure<IdentityOptions>(option =>
+	{
+		#region user
+		//option.User.AllowedUserNameCharacters = "abcd1234";
+		option.User.RequireUniqueEmail = true;
+		#endregion
+	});
 	#endregion
 
 	var app = builder.Build();
