@@ -82,7 +82,10 @@ try
 		option.Password.RequiredUniqueChars = 1;
 		#endregion
 
-		
+		#region Lockout
+		option.Lockout.MaxFailedAccessAttempts = 3;
+		option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+		#endregion
 
 	});
 	#endregion
