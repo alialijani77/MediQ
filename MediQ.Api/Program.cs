@@ -72,6 +72,18 @@ try
 		//option.User.AllowedUserNameCharacters = "abcd1234";
 		option.User.RequireUniqueEmail = true;
 		#endregion
+
+		#region Password
+		option.Password.RequireDigit = false;
+		option.Password.RequireLowercase = false;
+		option.Password.RequireUppercase = false;
+		option.Password.RequiredLength = 0;
+		option.Password.RequireNonAlphanumeric = false; //!@#$%^&*()_+
+		option.Password.RequiredUniqueChars = 1;
+		#endregion
+
+		
+
 	});
 	#endregion
 
