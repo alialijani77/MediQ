@@ -4,6 +4,7 @@ using MediQ.Core.DTOs.Account.User;
 using MediQ.Core.DTOs.Admin.Users;
 using MediQ.Core.DTOs.ApiResult;
 using MediQ.CoreBusiness.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MediQ.Api.Controllers.Admin.V1
@@ -11,6 +12,7 @@ namespace MediQ.Api.Controllers.Admin.V1
 	[Route("api/v{version:apiVersion}/[controller]")]
 	[ApiVersion("1")]
 	[ApiController]
+	[Authorize(Roles = "Admin")]
 	public class AdminController : ControllerBase
 	{
 
