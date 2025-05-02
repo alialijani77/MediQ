@@ -67,6 +67,14 @@ try
 	#region Identity
 	builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders()
 		.AddRoles<Role>().AddErrorDescriber<CustomIdentityErrorDescriber>();
+
+	//builder.Services.AddAuthorization(option => {
+	//	option.AddPolicy("Admin",policy =>
+	//	{
+	//		policy.RequireClaim("Admin");
+	//	});
+	//});
+
 	//builder.Services.Configure<IdentityOptions>(option =>
 	//{
 	//#region user

@@ -13,6 +13,8 @@ namespace MediQ.Api.Controllers.Admin.V1
 	[ApiVersion("1")]
 	[ApiController]
 	[Authorize(Roles = "Admin")]
+	//[Authorize(Policy = "Admin")]
+
 	public class AdminController : ControllerBase
 	{
 
