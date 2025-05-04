@@ -65,7 +65,51 @@ try
 	#endregion
 
 	#region Identity
-	builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrorDescriber>();
+	builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<BaseContext>().AddDefaultTokenProviders()
+		.AddRoles<Role>().AddErrorDescriber<CustomIdentityErrorDescriber>();
+
+	//builder.Services.AddAuthorization(option => {
+	//	option.AddPolicy("Admin",policy =>
+	//	{
+	//		policy.RequireClaim("Admin");
+	//	});
+	//});
+
+	//builder.Services.Configure<IdentityOptions>(option =>
+	//{
+	//#region user
+	//option.User.AllowedUserNameCharacters = "abcd1234";
+	//option.User.RequireUniqueEmail = true;
+	//#endregion
+
+	//#region Password
+	//option.Password.RequireDigit = false;
+	//option.Password.RequireLowercase = false;
+	//option.Password.RequireUppercase = false;
+	//option.Password.RequiredLength = 0;
+	//option.Password.RequireNonAlphanumeric = false; //!@#$%^&*()_+
+	//option.Password.RequiredUniqueChars = 1;
+	//#endregion
+
+	//#region Lockout
+	//option.Lockout.MaxFailedAccessAttempts = 3;
+	//option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+	//#endregion
+
+	//#region SignIn
+	//option.SignIn.RequireConfirmedAccount = false;
+	//option.SignIn.RequireConfirmedEmail = false;
+	//option.SignIn.RequireConfirmedPhoneNumber = false;
+	//#endregion
+	//});
+
+	//builder.Services.ConfigureApplicationCookie(option =>
+	//{
+	//	option.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+	//	option.LoginPath = "/";
+	//	option.AccessDeniedPath = "/";
+	//	option.SlidingExpiration = true;
+	//});
 	#endregion
 
 	var app = builder.Build();
