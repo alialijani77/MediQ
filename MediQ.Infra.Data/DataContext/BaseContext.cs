@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MediQ.Infra.Data.DataContext
 {
-    public abstract class BaseContext : IdentityDbContext<User, Role, int>
+    public abstract class BaseContext : IdentityDbContext
     {
         protected BaseContext() { }
 

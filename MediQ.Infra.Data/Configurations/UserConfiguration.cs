@@ -11,7 +11,7 @@ namespace MediQ.Infra.Data.Configurations
         {
             var user = new User()
             {
-                Id = 1,
+                Id = "b8819f0a-9e6d-4830-8f06-43efa5069e25",
                 UserName = "TestUser@gmail.com",
                 Email = "TestUser@gmail.com",
                 EmailConfirmed = true,

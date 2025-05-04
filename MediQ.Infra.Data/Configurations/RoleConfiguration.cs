@@ -10,8 +10,8 @@ namespace MediQ.Infra.Data.Configurations
         {
             List<Role> roles =
             [
-                new() { Id = 1, Name = "Admin" },
-                new() { Id = 2, Name = "User" }
+                new() { Id = "e06cafc4-898c-4795-af79-c34ddfa69ef0", Name = "Admin" },
+                new() { Id = "0e882054-2fcf-4084-983f-61538bd6d8a4", Name = "User" }
             ];
 
             builder
