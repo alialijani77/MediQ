@@ -23,7 +23,6 @@ namespace MediQ.CoreBusiness.Services.Implementions
             {
                 Id = u.Id,
                 Name = u.Name,
-                Description = u.Description,
             }).ToList();
         }
 
@@ -32,7 +31,6 @@ namespace MediQ.CoreBusiness.Services.Implementions
         {
             Role role = new Role();
             role.Name = newRoleDto.Name;
-            role.Description = newRoleDto.Description;
             var result = await _roleRepository.CreateRole(role);
             return result.Succeeded;
         }
@@ -43,7 +41,6 @@ namespace MediQ.CoreBusiness.Services.Implementions
             if (role is not null)
             {
                 role.Name = updateRoleDto.Name;
-                role.Description = updateRoleDto.Description;
                 var identityResult = await _roleRepository.UpdateRole(role);
                 return identityResult.Succeeded;
             }
