@@ -143,7 +143,6 @@ try
 	app.UseHttpsRedirection();
 	app.UseAuthentication();
 	app.UseAuthorization();
-	app.UseHangfireServer();
 	app.UseHangfireDashboard();
 	app.MapControllers();
 
