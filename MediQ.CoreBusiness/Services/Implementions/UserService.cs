@@ -1,4 +1,5 @@
-﻿using MediQ.Core.DTOs.Account.User;
+﻿using Hangfire;
+using MediQ.Core.DTOs.Account.User;
 using MediQ.Core.Statics;
 using MediQ.CoreBusiness.Services.Interfaces;
 using MediQ.Domain.Entities.UserManagement;
@@ -12,13 +13,14 @@ namespace MediQ.CoreBusiness.Services.Implementions
 		private readonly IUserRepository _userRepository;
 		private readonly IEmailService _emailService;
 		private readonly ITokenService _tokenService;
-
+		private readonly IBackgroundJobClient _jobClient;
 		#region ctor
-		public UserService(IUserRepository userRepository, IEmailService emailService, ITokenService tokenService)
+		public UserService(IUserRepository userRepository, IEmailService emailService, ITokenService tokenService,IBackgroundJobClient jobClient)
 		{
 			_userRepository = userRepository;
 			_emailService = emailService;
 			_tokenService = tokenService;
+			_jobClient = jobClient;
 		}
 		#endregion
 		#region Register
@@ -46,10 +48,9 @@ namespace MediQ.CoreBusiness.Services.Implementions
 				var body = $@"
                 <div> برای فعالسازی حساب کاربری خود روی لینک زیر کلیک کنید . </div>
                 <a href='{PathTools.Root}/api/v1/Account/Activate-Email?activationCode={token}&userId={user.Id}'>فعالسازی حساب کاربری</a>";
-
-				var emailResult = await _emailService.SendEmail(user.Email, "فعالسازی حساب کاربری", body);
-
-				if (emailResult)
+				_jobClient.Enqueue<IEmailService>(p => p.SendEmail(user.Email, "فعالسازی حساب کاربری", body));
+				//var emailResult = await _emailService.SendEmail(user.Email, "فعالسازی حساب کاربری", body);
+				//if (emailResult)
 					return true;
 				#endregion
 			}
