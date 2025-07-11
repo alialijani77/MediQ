@@ -6,6 +6,7 @@ using MediQ.Domain.Entities.UserManagement;
 using MediQ.Infra.Data.DataContext;
 using MediQ.Infra.Ioc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
@@ -77,7 +78,8 @@ try
 		.UseSimpleAssemblyNameTypeSerializer()
 		.UseRecommendedSerializerSettings()
 		.UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireConnection")));
-	builder.Services.AddHangfireServer();
+	builder.Services.AddHangfireServer(); //=> options.SchedulePollingInterval = TimeSpan.FromMinutes(1); => For Delayed Jobs
+
 	//builder.Services.AddAuthorization(option => {
 	//	option.AddPolicy("Admin",policy =>
 	//	{
