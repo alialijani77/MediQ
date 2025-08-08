@@ -124,6 +124,10 @@ try
 	//});
 	#endregion
 
+	#region GlobalJobFilters
+	GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute { Attempts = 20, DelaysInSeconds = new[] { 10, 30, 60, 120 } });
+	#endregion
+
 	var app = builder.Build();
 
 	// Configure the HTTP request pipeline.
