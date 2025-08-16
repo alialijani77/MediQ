@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using Hangfire;
+using Hangfire.Dashboard;
 using Hangfire.SqlServer;
 using MediQ.Api.Middlewares;
 using MediQ.Domain.Entities.UserManagement;
@@ -149,7 +150,11 @@ try
 	app.UseHttpsRedirection();
 	app.UseAuthentication();
 	app.UseAuthorization();
-	app.UseHangfireDashboard();
+	app.UseHangfireDashboard("medQqhangfire", new DashboardOptions
+	{
+		DisplayNameFunc = (ctx, job) => $"{job.Type.Name} -> {job.Method.Name}",
+		IsReadOnlyFunc = (DashboardContext context) => true
+	});
 	app.MapControllers();
 
 	app.Run();
