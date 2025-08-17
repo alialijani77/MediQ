@@ -79,7 +79,11 @@ try
 		.UseSimpleAssemblyNameTypeSerializer()
 		.UseRecommendedSerializerSettings()
 		.UseSqlServerStorage(builder.Configuration.GetConnectionString("HangfireConnection")));
-	builder.Services.AddHangfireServer(); //=> options.SchedulePollingInterval = TimeSpan.FromMinutes(1); => For Delayed Jobs
+	builder.Services.AddHangfireServer(option =>
+	{
+		option.Queues = new string[] { "default", "email" };
+		option.WorkerCount = Environment.ProcessorCount * 5;
+	}); //=> options.SchedulePollingInterval = TimeSpan.FromMinutes(1); => For Delayed Jobs
 
 	//builder.Services.AddAuthorization(option => {
 	//	option.AddPolicy("Admin",policy =>
